@@ -1,4 +1,10 @@
-from ..errors import ErrorFolderNotFound, ErrorNoPublicFolderReplicaAvailable, ErrorInvalidOperation
+from ..errors import (
+    ErrorAccessDenied,
+    ErrorFolderNotFound,
+    ErrorInvalidOperation,
+    ErrorItemNotFound,
+    ErrorNoPublicFolderReplicaAvailable,
+)
 from ..util import create_element, MNS
 from .common import EWSAccountService, EWSPooledMixIn, parse_folder_elem, create_folder_ids_element,\
     create_shape_element
@@ -9,7 +15,11 @@ class GetFolder(EWSAccountService, EWSPooledMixIn):
     SERVICE_NAME = 'GetFolder'
     element_container_name = '{%s}Folders' % MNS
     ERRORS_TO_CATCH_IN_RESPONSE = EWSAccountService.ERRORS_TO_CATCH_IN_RESPONSE + (
-        ErrorFolderNotFound, ErrorNoPublicFolderReplicaAvailable, ErrorInvalidOperation,
+        ErrorAccessDenied,
+        ErrorFolderNotFound,
+        ErrorNoPublicFolderReplicaAvailable,
+        ErrorInvalidOperation,
+        ErrorItemNotFound,
     )
 
     def call(self, folders, additional_fields, shape):
